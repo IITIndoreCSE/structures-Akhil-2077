@@ -4,16 +4,18 @@
 
 using namespace std;
 
-// TODO: Write the Book struct here
-struct Book { 
-string title;
-string author;
-int year;
-int pages;
-string isbn;
+
+struct Book {
+    char title[100];
+    char author[100];
+    int year;
+    int pages;
+    char isbn[20];
 };
 
-void print_book(int index, const char* title, const char* author, int year, int pages, const char* isbn) {
+// Output function to print book details
+void print_book(int index, const char* title, const char* author,
+                int year, int pages, const char* isbn) {
     cout << "Book[" << index << "]: "
          << "title=" << title << ", "
          << "author=" << author << ", "
@@ -38,27 +40,26 @@ int main(int argc, char* argv[]) {
     input >> num_books;
     input.ignore(); // skip newline
 
-    Book *books = new Book[num_books];
-    for (int i = 0; i < num_books; i++) {
-        getline(input, books[i].title);
-        getline(input, books[i].author);
-        input >>books[i].year;
-        input >>books[i].pages;
-        input.ignore();
-        getline(input, books[i].isbn);
-    }
-    for (int i = 0; i < num_books; i++) {
-        print_book(i + 1,books[i]);
-    }
-    delete[] books;
-    // TODO: Create array of Book
-    // Book books[10];
+    // Create an array of Book structs
+    Book books[num_books];
 
-    // TODO: Read books from input
-    // for (int i = 0; i < num_books; i++) { ... }
+    // Read books from input
+    for (int i = 0; i < num_books; i++) {
+        input.getline(books[i].title, 100);
+        input.getline(books[i].author, 100);
+        input >> books[i].year;
+        input >> books[i].pages;
+        input.ignore();  // skip newline after reading pages
+        input.getline(books[i].isbn, 20);
+    }
 
-    // TODO: Print books using print_book
-    // for (int i = 0; i < num_books; i++) { ... }
+    // Print books using print_book
+    for (int i = 0; i < num_books; i++) {
+        print_book(i, books[i].title, books[i].author,
+                   books[i].year, books[i].pages, books[i].isbn);
+    }
 
     return 0;
 }
+
+  
