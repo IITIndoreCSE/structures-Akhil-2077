@@ -4,7 +4,11 @@
 
 using namespace std;
 
-// TODO: Define TaylorTerm struct
+struct Taylorterm {
+int order;
+double coeff;
+double value;
+};// TODO: Define TaylorTerm struct
 // struct TaylorTerm {
 // };
 
@@ -22,7 +26,11 @@ void print_taylor_result(const char* function_name, double x,
          << " with " << terms << " terms: "
          << approximation << "\n";
 }
-
+double factorial(int n) {
+double result = 1;
+for (int i = 1; i <= n; i++) result *= i;
+return result;
+}
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cerr << "Usage: " << argv[0] << " <input_file>" << endl;
@@ -39,12 +47,21 @@ int main(int argc, char* argv[]) {
     int terms;
     input >> x >> terms;
 
+    TaylorTerm* series = new TaylorTerm[terms];
     // TODO: Create an array of TaylorTerm
     // TaylorTerm series[terms];
 
     double approximation = 0.0;
 
-    // TODO: Compute each Taylor term and store in array
+    for (int k = 0; k < terms; k++) {
+        series[k].order = k;
+        series[k].coeff = 1.0 / factorial(k);
+        series[k].value = series[k].coeff * pow(x, k);
+        print_taylor_term(k + 1, series[k].order, series[k].coeff, series[k].value);
+        approximation += series[k].value;
+    }
+    print_taylor_result("e^x", x, terms, approximation);
+    delete[] series;// TODO: Compute each Taylor term and store in array
     // for (int k = 0; k < terms; k++) {
     // }
 
