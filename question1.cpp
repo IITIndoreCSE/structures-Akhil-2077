@@ -5,7 +5,13 @@
 using namespace std;
 
 // TODO: Write the Book struct here
-// struct Book { ... };
+struct Book { 
+string title;
+string author;
+int year;
+int pages;
+string isbn;
+};
 
 void print_book(int index, const char* title, const char* author, int year, int pages, const char* isbn) {
     cout << "Book[" << index << "]: "
@@ -32,6 +38,19 @@ int main(int argc, char* argv[]) {
     input >> num_books;
     input.ignore(); // skip newline
 
+    Book *books = new Book[num_books];
+    for (int i = 0; i < num_books; i++) {
+        getline(input, books[i].title);
+        getline(input, books[i].author);
+        input >>books[i].year;
+        input >>books[i].pages;
+        input.ignore();
+        getline(input, books[i].isbn);
+    }
+    for (int i = 0; i < num_books; i++) {
+        print_book(i + 1,books[i]);
+    }
+    delete[] books;
     // TODO: Create array of Book
     // Book books[10];
 
