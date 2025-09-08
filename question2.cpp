@@ -4,7 +4,13 @@
 
 using namespace std;
 
-// TODO: Define the Rectangle struct according to README
+struct Rectangle {
+double width;
+double height;
+double density;
+string material;
+double mass;
+};// TODO: Define the Rectangle struct according to README
 // struct Rectangle {
 // };
 
@@ -35,7 +41,18 @@ int main(int argc, char* argv[]) {
     input.ignore(); // skip newline after number
 
     const int MAX_PLATES = 10;
+Rectangle plates[MAX_PLATES];
 
+  for (int i = 0; i < num_plates; i++) {
+    input >> plates[i].width >> plates[i].height >> plates[i].density;
+    input.ignore();
+    getline(input, plates[i].material);
+
+    plates[i].mass = plates[i].width * plates[i].height * plates[i].density;
+  }
+  for (int i = 0; i < num_plates; i++) { 
+  print_plate(i + 1, plates[i]);
+  }
     // TODO: Create an array of Rectangle
     // Rectangle plates[MAX_PLATES];
 
